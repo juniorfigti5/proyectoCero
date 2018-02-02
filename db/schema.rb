@@ -10,16 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201014632) do
+ActiveRecord::Schema.define(version: 20180202003919) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.integer "categoryId"
+    t.integer "user_id"
+    t.integer "category_id"
     t.string "place"
     t.string "address"
-    t.string "dateStart"
-    t.string "dateEnd"
-    t.integer "typeId"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180201014632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "remember_digest"
   end
 
 end

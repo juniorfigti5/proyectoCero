@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.where(user_id: current_user).order(created_at: :desc)
   end
 
   # GET /events/1
@@ -15,17 +15,26 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @users = User.all
+    @categories = Category.all
+    @types = Type.all
   end
 
   # GET /events/1/edit
   def edit
+    @users = User.all
+    @categories = Category.all
+    @types = Type.all
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
+    @users = User.all
+    @categories = Category.all
+    @types = Type.all
+    @event.user_id = current_user.id
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -69,6 +78,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :categoryId, :place, :address, :dateStart, :dateEnd, :typeId)
+      params.require(:event).permit(:name, :user_id, :category_id, :place, :address, :start_date, :end_date, :type_id)
     end
 end

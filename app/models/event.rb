@@ -1,11 +1,9 @@
 class Event < ApplicationRecord
 	belongs_to :user
-	validates name, presence: true 
-	validates categoryId, presence: true 
-	validates place, presence: true 
-	validates address, presence: true 
-	validates dateStart, presence: true 
-	validates dateEnd, presence: true 
-	validates typeId, presence: true 
-
+	belongs_to :category
+	belongs_to :type
+	validates :place,  presence: true
+	validates :address,  presence: true
+	validates :start_date,  presence: true
+	validates :end_date,  presence: true
 end
